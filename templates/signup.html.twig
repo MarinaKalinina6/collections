@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <main class="form-signin">
+        <div class="row mt-4 mb-5">
+            <h1>Sign up</h1>
+        </div>
+        <div class="row">
+            {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+
+        </div>
+        <div>Already have an account? <a href="{{ path('signin') }}">Sing in</a></div>
+    </main>
+
+{% endblock %}

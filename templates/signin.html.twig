@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="form-signin">
+        <div class="row mt-4 mb-5">
+
+            <h1>Sign in</h1>
+        </div>
+        <div class="row">
+            {{ form(form, {attr: {novalidate: 'novalidate'}}) }}
+            {% if error %}
+                <div class="error-message mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <div>Don't have an account? <a href={{ path('signup') }}>Sign up</a></div>
+        </div>
+    </main>
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+body {
+    background-color: #ffffff;
+
+    .form-signin {
+        width: 100%;
+        max-width: 500px;
+        padding: 90px;
+        margin: auto;
+    }
+    .error-message {
+        background-color: #fdf9f9;
+        border: 1px solid #fcc2c3;
+        float: left;
+        padding: 5px 15px;
+    }
+}

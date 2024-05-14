@@ -1,0 +1,32 @@
+security:
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            logout:
+                path: /logout
+                target: /
+            form_login:
+                login_path: signin
+                check_path: signin
+                enable_csrf: true
+                username_parameter: form[username]
+                password_parameter: form[password]
+                csrf_parameter: form[token]
+                csrf_token_id: signin
+
+    access_control:
+        - { path: ^/(signin|signup), role: PUBLIC_ACCESS }
