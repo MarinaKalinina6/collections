@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\Enum\UserStatus;
 use App\Repository\UserRepository;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements PasswordAuthenticatedUserInterface, UserInterface
@@ -26,24 +27,23 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column(type: 'json')]
     private array $roles;
 
+    #[ORM\Column( enumType: UserStatus::class)]
+    private UserStatus $status;
+
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private readonly \DateTimeImmutable $addedAt;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $lastSignInAt;
 
-    #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $isActive;
-
-    public function __construct(string $username)
+    public function __construct()
     {
         $this->id = Uuid::v7();
-        $this->username = $username;
         $this->password = null;
         $this->roles = ['ROLE_USER'];
         $this->addedAt = new \DateTimeImmutable();
         $this->lastSignInAt = null;
-        $this->isActive = true;
+        $this->status = UserStatus::AwaitingActivator;
     }
 
     public function getId(): ?Uuid
@@ -54,6 +54,13 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function getUsername(): string
     {
         return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getPassword(): string
@@ -78,6 +85,13 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this->lastSignInAt;
     }
 
+    public function setLastSignInAt(?\DateTimeImmutable $lastSignInAt): self
+    {
+        $this->lastSignInAt = $lastSignInAt;
+
+        return $this;
+    }
+
     public function markSignedIn(): self
     {
         $this->lastSignInAt = new \DateTimeImmutable();
@@ -85,27 +99,9 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function isActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    public function block(): self
-    {
-        $this->isActive = false;
-        return $this;
-    }
-
-    public function unblock(): self
-    {
-        $this->isActive = true;
-
-        return $this;
-    }
-
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return $this->id;
     }
 
     /**
@@ -116,7 +112,27 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this->roles;
     }
 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function eraseCredentials(): void
     {
     }
+
+    public function getStatus(): UserStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(UserStatus $status):self
+    {
+        $this->status = $status;
+        return $this;
+
+    }
+
 }

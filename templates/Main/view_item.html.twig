@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item{% endblock %}
+
+{% block body %}
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">Viewing the item
+                <a type="button" class="btn-close" href="{{ path('main') }}" aria-label="Close"
+                   style="float: right;"></a></h2>
+        </div>
+        <div class="bg-dark box-shadow mx-auto" style="width: 50%; height: 350px; border-radius: 21px 21px 0 0;">
+            <div style="color: #d7d8da; font-size: 30px; padding: 100px; " class="py-5 lead text-sm-start">
+                <div>Name: {{ name|capitalize }}</div>
+                <div>Collection: {{ collection_name|capitalize }}</div>
+                <div>Category: {{ category }}</div>
+                <hr class="mt-2 mb-3">
+                <div>{{ date }}</div>
+                <div>Author: {{ author }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

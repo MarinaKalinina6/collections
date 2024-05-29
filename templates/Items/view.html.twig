@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Items{% endblock %}
+
+{% block body %}
+    {% include 'navbar.html.twig' %}
+    <div class="container">
+        <div><h2 class="text-center">{{ name_collection }} collection</h2></div>
+        <a class="btn btn-outline-dark" href="{{ path('item_create') }}?id={{ id_collection }}" role="button"
+           style="float: right;">Create</a>
+
+        <a type="button" class="btn btn-secondary"
+           href="{{ path('view_items', { 'id': id_collection }) }}?sort=ASC">Sort ↑
+        </a>
+        <a type="button" class="btn btn-secondary"
+           href="{{ path('view_items', { 'id': id_collection }) }}?sort=DESC">Sort ↓
+        </a>
+    </div>
+
+    <div class=" text-center container">
+        <div class="container">
+
+            <div class="form-inline my-lg-2 my-lg-1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="h5">№</th>
+                        <th scope="col" class="h5">Id</th>
+                        <th scope="col" class="h5">Name</th>
+                        <th scope="col" class="h5">Tags</th>
+                        {% for row in attributes %}
+                            {% for attributes in row %}
+                                <th scope="col">{{ attributes|capitalize }}</th>
+                            {% endfor %}
+                        {% endfor %}
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for row in items %}
+                    <tr class="table">
+                        <td class="align-content-center lead">{{ loop.index }}</td>
+                        <td class="align-content-center lead">{{ row.id }}
+                        </td>
+                        <td class="align-content-center lead">{{ row.name|capitalize }}</td>
+
+
+                        <td class="align-content-center lead">
+                            {% for item in row.tags %}
+                                #{{ item.name|capitalize }}
+                            {% endfor %}
+                        </td>
+
+                        {% for attributes in value_attributes %}
+
+                            <td class="align-content-center">{{ attributes.0|capitalize }}</td>
+
+                        {% endfor %}
+
+                        <td class="align-top">
+                            <div class=" btn-group">
+                                <div data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                         fill="currentColor"
+                                         class="bi bi-three-dots" viewBox="0 0 16 16">
+                                        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                    </svg>
+                                </div>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ path('item_edit', { 'id': row.id }) }}">Edit
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ path('item_delete', { 'id': row.id }) }}">Delete
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                        {% endfor %}
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+
+{% block body %}
+    <body class="dark-theme">
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="{{ path('main') }}" class="nav-link px-2 link-dark">Main</a></li>
+                    {% if app.user != null %}
+                        <li><a href="{{ path('view_collections') }}" class="nav-link px-2 link-dark">Collections</a></li>
+                    {% endif %}
+                </ul>
+
+                <form class="w-25 col-12 col-lg-auto mb-3 mb-lg-0 me-lg-2">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form>
+                {% if  app.user  == null %}
+                    <a class="nav-link px-2 link-dark" href="{{ path('signin') }}">Sign in</a>
+                {% else %}
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.username }}
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+                            <li><a class="dropdown-item" href="{{ path('create_collection') }}">Create collection</a></li>
+                            <div class="dropdown-item">
+                            <div class="form-check form-switch form-check-re display-9">
+                                {% set is_dark_mode = app.request.cookies.get('theme') == 'dark' %}
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeSwitch" {{ is_dark_mode ? 'checked' : '' }}>
+                                <label class="form-check-label" for="darkModeSwitch">Тёмная тема</label>
+                            </div>
+                            </div>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ path('_logout_main') }}">Logout</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    </body>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+    <body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-8">
+                <h2 class="mb-3 py-5 text-center"><font style="vertical-align: inherit;"><font
+                                style="vertical-align: inherit;">{{ heading }}</font></font>
+                    <a type="button" class="btn-close" href="{{ path('view_items', { 'id': idCollection }) }}"
+                       aria-label="Close"
+                       style="float: right;"></a></h2>
+                <form class="needs-validation" novalidate="">
+                    <div class="row g-3">
+                        {{ form(form) }}
+                    </div>
+                    <div class="submit"> {{ form_end(form) }}</div>
+                    <hr class="my-4">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit"><font
+                                style="vertical-align: inherit;"><font
+                                    style="vertical-align: inherit;">Submit</font></font></button>
+                </form>
+            </div>
+        </div>
+        </main>
+        <footer class="my-5 pt-5 text-muted text-center text-small"></footer>
+    </div>
+    </div>
+    </body>
+
+{% endblock %}

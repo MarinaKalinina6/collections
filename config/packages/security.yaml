@@ -30,3 +30,14 @@ security:
 
     access_control:
         - { path: ^/(signin|signup), role: PUBLIC_ACCESS }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: /collections, roles: ROLE_USER}
+        - { path: /item/create, roles: ROLE_USER}
+        - { path: /collection/items, roles: ROLE_USER}
+        - { path: /item/edit, roles: ROLE_USER}
+        - { path: /item/delete, roles: ROLE_USER}
+        - { path: /collection/create, roles: ROLE_USER}
+        - { path: /collection/update, roles: ROLE_USER}
+        - { path: /collection/delete, roles: ROLE_USER}
+
+

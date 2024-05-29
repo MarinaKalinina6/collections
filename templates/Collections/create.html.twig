@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+    <body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-8">
+                <h2 class="mb-3 py-5 text-center"><font style="vertical-align: inherit;"><font
+                                style="vertical-align: inherit;">{{ heading }}</font></font>
+                    <a type="button" class="btn-close" href="{{ path('view_collections') }}" aria-label="Close"
+                       style="float: right;"></a></h2>
+
+
+                <form class="needs-validation" novalidate="">
+                    <div class="row g-3">
+
+
+                        <div class="col-12">
+                            <label class="form-label"><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">Name collection </font></font><span
+                                        class="text-muted"><font style="vertical-align: inherit;"></font></span></label>
+                            <protonpass-control-c04c data-protonpass-role="icon"></protonpass-control-c04c>
+                            {{ form_row(form.name) }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label"><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">Description </font></font><span
+                                        class="text-muted"><font style="vertical-align: inherit;"></font></span></label>
+                            <protonpass-control-c04c data-protonpass-role="icon"></protonpass-control-c04c>
+                            {{ form_row(form.description) }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label"><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">Choice category </font></font><span
+                                        class="text-muted"><font style="vertical-align: inherit;"></font></span></label>
+                            <protonpass-control-c04c data-protonpass-role="icon"></protonpass-control-c04c>
+                            {{ form_row(form.category) }}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label"><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">Choice image </font></font><span
+                                        class="text-muted"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">(not necessary)</font></font></span></label>
+                            {{ form_row(form.image) }}
+                        </div>
+
+                        <div class="col-12 fs-5"><font style="vertical-align: inherit;"><font
+                                        style="vertical-align: inherit;">Custom attributes:</font></font></div>
+
+                        <button type="button" class="btn btn-outline-dark" id="add-custom-attributes" href="#">Add
+                            attributes
+                        </button>
+                        <div id="custom-attributes-wrapper"
+                             data-index="{{ form.customItemAttributes|length > 0 ? form.customItemAttributes|last.vars.name + 1 : 0 }}"
+                             data-prototype="{{ form_widget(form.customItemAttributes.vars.prototype)|e('html_attr') }}"
+                        >
+                            {% for customAttributes in  form.customItemAttributes %}
+                                <div id="item">
+                                    {{ form_row(customAttributes) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+
+                <div class="submit"> {{ form_end(form) }}</div>
+                    <hr class="my-4">
+                                    <button class="w-100 btn btn-primary btn-lg" type="submit" ><font
+                                                style="vertical-align: inherit;"><font style="vertical-align: inherit;">Submit</font></font></button>
+                </form>
+            </div>
+        </div>
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+
+        </footer>
+    </div>
+    </div>
+
+    </body>
+{% endblock %}

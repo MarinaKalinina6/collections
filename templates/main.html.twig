@@ -1,42 +1,84 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Main{% endblock %}
+
 {% block body %}
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
+    {% include 'navbar.html.twig' %}
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">Главная</a></li>
-                    <li><a href="#" class="nav-link px-2 link-dark">Коллекции</a></li>
-                </ul>
+    <div class=" flex-md-equal w-100 my-md-3 pl-md-3">
+        <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+            {% for key,value in tags %}
 
-                <form class="w-25 col-12 col-lg-auto mb-3 mb-lg-0 me-lg-2">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-                </form>
-                {% if currentUsername == '' %}
-                    <a class="nav-link px-2 link-dark" href="{{ path('signin') }}">Sign in</a>
-                    {% else %}
-                <div class="dropdown text-end">
-                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ currentUsername }}
-                    </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                        <li><a class="dropdown-item" href="#">Создать коллекцию</a></li>
-                        <li><a class="dropdown-item" href="#">Настройка</a></li>
-                        <li><a class="dropdown-item" href="#">Профиль</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{{ path('_logout_main') }}">Logout</a></li>
-                    </ul>
-                </div>
-                    {% endif %}
+                <a style="font-size: {{ value }}em" href="{{ path('search_tag', { 'name': key }) }}">#{{ key }}</a>
+
+            {% endfor %}
+            <div class="my-3 py-3">
+                <h2 class="display-5">The largest collections</h2>
+                <p class="lead">Top 5</p>
+            </div>
+            <div class="bg-light box-shadow mx-auto" style="width: 80%;  border-radius: 21px 21px 0 0;">
+
+                <table class="table" style="color: #1a1d20 ">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="h5">№</th>
+                        <th scope="col" class="h5">Name</th>
+                        <th scope="col" class="h5">Description</th>
+                        <th scope="col" class="h5">Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for row in collections %}
+                    <tr class="table">
+                        <td class="align-content-center lead">{{ loop.index }}</td>
+                        <td class="align-content-center lead">{{ row.name|capitalize }}</td>
+                        <td class="align-content-center lead">{{ row.description|capitalize }}</td>
+                        <td class="align-content-center lead">{{ row.category }}</td>
+                        {% endfor %}
+
+                    </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
-    </header>
+
+    </div>
+    </div>
+    <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            <h2 class="display-5">Recent added items</h2>
+        </div>
+        <div class="bg-dark box-shadow mx-auto" style="width: 80%; border-radius: 21px 21px 0 0;">
+            <table class="table bg-dark">
+                <thead>
+                <tr>
+                    <th scope="col" class="h5">№</th>
+                    <th scope="col" class="h5">Name</th>
+                    <th scope="col" class="h5">Name Collection</th>
+                    <th scope="col" class="h5">Author</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for row in items %}
+                <tr class="table">
+                    <td class="align-content-center lead">{{ loop.index }}</td>
+                    <td class="align-content-center lead">
+                        <a href="{{ path('view_item', {'id' : row.id}) }}" class="name">{{ row.name|capitalize }}</a>
+                    </td>
+                    <td class="align-content-center lead">{{ row.collection_name|capitalize }}</td>
+                    <td class="align-content-center lead">{{ row.username }}</td>
+                    {% endfor %}
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <div class="py-5"></div>
 {% endblock %}
+

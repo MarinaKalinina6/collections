@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Items{% endblock %}
+{% block body %}
+    <div class=" text-center container">
+        <div class="py-5">
+            <div><h2 class="text-center">Items by #{{ name_tag }}</h2></div>
+            <h2><a type="button" class="btn-close" href="{{ path('main') }}" aria-label="Close"
+                   style="float: right;"></a></h2></div>
+        <div class="container py-5">
+
+            <div class="form-inline my-lg-2 my-lg-1">
+                <table class="table bg-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="h5">№</th>
+                        <th scope="col" class="h5">ID</th>
+                        <th scope="col" class="h5">Name</th>
+                        <th scope="col" class="h5">Name Collection</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for row in items %}
+                    <tr class="table">
+                        <td class="align-content-center lead">{{ loop.index }}</td>
+                        <td class="align-content-center lead">{{ row.id }}</td>
+                        <td class="align-content-center lead">{{ row.name|capitalize }}</td>
+                        <td class="align-content-center lead">{{ row.collection_name|capitalize }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

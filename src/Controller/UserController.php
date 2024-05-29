@@ -59,9 +59,8 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $user = new User(
-                username: $data['username'],
-            );
+            $user = new User();
+            $user->setUsername($data['username']);
 
             $findUsername = $entityManager
                 ->getRepository(User::class)
