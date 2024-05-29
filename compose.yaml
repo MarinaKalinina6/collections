@@ -1,8 +1,8 @@
-services:
-    database:
-        image: mysql:8
-        environment:
-            MYSQL_DATABASE: collections-items
-            MYSQL_ROOT_PASSWORD: root
-        ports:
-            - 3306:3306
+#services:
+#    database:
+#        image: mysql:8
+#        environment:
+#            MYSQL_DATABASE: collections-items
+#            MYSQL_ROOT_PASSWORD: root
+#        ports:
+#            - 3306:3306
