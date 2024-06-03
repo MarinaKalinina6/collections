@@ -87,7 +87,7 @@ class MainPageController extends AbstractController
             }
         }
 
-        return $this->render('main/search_tag.html.twig', [
+        return $this->render('Main/search_tag.html.twig', [
             'items' => $itemByTag,
             'name_tag' => $currentTag->getName(),
         ]);
@@ -98,7 +98,7 @@ class MainPageController extends AbstractController
     {
         $user = $entityManager->getRepository(User::class)->findOneBy(['id' => $item->getUserId()]);
 
-        return $this->render('main/view_item.html.twig', [
+        return $this->render('Main/view_item.html.twig', [
             'name' => $item->getName(),
             'collection_name' => $item->getItemCollection()->getName(),
             'category' => $item->getItemCollection()->getCategory()->getName(),
