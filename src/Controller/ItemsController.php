@@ -93,7 +93,7 @@ class ItemsController extends AbstractController
             return $this->redirectToRoute('view_items', ['id' => $id]);
         }
 
-        return $this->render('items/create.html.twig', [
+        return $this->render('Items/create.html.twig', [
             'form' => $form->createView(),
             'title' => 'Create Item',
             'heading' => 'Create Item',
